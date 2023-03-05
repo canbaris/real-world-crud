@@ -21,14 +21,17 @@ public class FileStorageService {
   @Autowired
   private CustomerRepository customerRepository;
 
-  public File store(MultipartFile file, Integer customerId) throws IOException {
+  public File store(MultipartFile file, Long customerId) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    File fileToSave = new File(fileName, file.getBytes(), customerRepository.findById(String.valueOf(customerId)).get());
+
+    // findById is an anti-pattern https://vladmihalcea.com/spring-data-jpa-findbyid/
+    // TODO: add isPresent() checks
+    File fileToSave = new File(fileName, file.getBytes(), customerRepository.findById(customerId).get());
 
     return fileRepository.save(fileToSave);
   }
 
-  public File getFile(String id) {
+  public File getFile(Long id) {
     return fileRepository.findById(id).get();
   }
 

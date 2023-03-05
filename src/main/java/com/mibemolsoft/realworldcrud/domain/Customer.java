@@ -15,6 +15,13 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
+    public Customer(){
+    }
+
+    public Customer(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
