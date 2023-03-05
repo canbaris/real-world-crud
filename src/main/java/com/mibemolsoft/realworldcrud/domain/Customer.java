@@ -1,4 +1,4 @@
-package com.mibemolsoft.realworldcrud.entities;
+package com.mibemolsoft.realworldcrud.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,4 +23,11 @@ public class Customer {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

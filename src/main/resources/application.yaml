@@ -1,12 +1,16 @@
+# YAML adheres to DRY principle and is well structured
 spring:
   datasource:
+    # persist to a file instead of running in memory
     url: 'jdbc:h2:file:~/crud.h2'
     driverClassName: org.h2.Driver
     username: sa
     password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    # update means create but don't delete existing entities
     hibernate.ddl-auto: update
   h2:
     console:
+      # access the db console through http://localhost:8080/h2-console
       enabled: true
