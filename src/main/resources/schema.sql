@@ -1,1 +1,0 @@
--- We user this in case if the hibernate auto generation does is not sufficient

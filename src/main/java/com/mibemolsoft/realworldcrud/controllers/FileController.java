@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.mibemolsoft.realworldcrud.domain.Customer;
 import com.mibemolsoft.realworldcrud.domain.File;
 import com.mibemolsoft.realworldcrud.messages.ResponseFile;
 import com.mibemolsoft.realworldcrud.messages.ResponseMessage;
@@ -37,6 +38,18 @@ public class FileController {
         } catch (Exception e) {
             message = "There has been an error while uploading the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    //TODO : fix serialization of json byte request
+    @PostMapping("/files")
+    public ResponseEntity<File> createFile(@RequestBody File file) {
+        try {
+            File fileAdded = fileRepository
+                    .save(new File(file.getName(),file.getFileContents(), file.getCustomer()));
+            return new ResponseEntity<>(fileAdded, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

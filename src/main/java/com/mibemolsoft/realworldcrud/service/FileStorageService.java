@@ -1,6 +1,7 @@
 package com.mibemolsoft.realworldcrud.service;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.mibemolsoft.realworldcrud.domain.File;
@@ -31,6 +32,7 @@ public class FileStorageService {
     return fileRepository.save(fileToSave);
   }
 
+  // TODO: if file does not exist return empty json response
   public File getFile(long id) {
     return fileRepository.findById(id).get();
   }

@@ -1,8 +1,8 @@
 # YAML adheres to DRY principle and is well structured
 spring:
   datasource:
-    # persist to a file instead of running in memory
-    url: 'jdbc:h2:file:~/crud.h2'
+    # run in memory
+    url: 'jdbc:h2:mem:cruddb'
     driverClassName: org.h2.Driver
     username: sa
     password: password

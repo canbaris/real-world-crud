@@ -1,2 +1,0 @@
--- user: user, password: userPassword
--- For a better migration path, disable hibernate ddl-auto config and use Flyway https://flywaydb.org/
