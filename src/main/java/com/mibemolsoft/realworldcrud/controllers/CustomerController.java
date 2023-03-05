@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:8080")
 public class CustomerController {
 
     @Autowired
@@ -29,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") long id) {
         Optional<Customer> customerData = customerRepository.findById(id);
 
         if (customerData.isPresent()) {
@@ -43,7 +44,7 @@ public class CustomerController {
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         try {
             Customer customerAdded = customerRepository
-                    .save(new Customer(customer.getName()));
+                    .save(new Customer(customer.getName(),customer.getId()));
             return new ResponseEntity<>(customerAdded, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,7 +84,6 @@ public class CustomerController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 // The best way to write a custom Spring Data Repository https://vladmihalcea.com/custom-spring-data-repository/
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 }

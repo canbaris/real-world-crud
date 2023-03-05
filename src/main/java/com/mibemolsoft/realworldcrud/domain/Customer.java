@@ -10,7 +10,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -18,15 +18,16 @@ public class Customer {
     public Customer(){
     }
 
-    public Customer(String name) {
+    public Customer(String name, long id) {
         this.name = name;
+        this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

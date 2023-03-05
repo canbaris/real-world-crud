@@ -10,7 +10,7 @@ public class File {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,7 +36,7 @@ public class File {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

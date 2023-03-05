@@ -17,7 +17,7 @@ public class CustomWebSecurityConfiguration {
     @Autowired
     private DataSource dataSource;
 
-    // You need to move this to another config file due to bug causing circular dependencies
+    // We need to move this to another config file due to a bug causing circular dependencies
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -28,7 +28,7 @@ public class CustomWebSecurityConfiguration {
                 .dataSource(dataSource)
                 .withDefaultSchema()
                 .withUser("user")
-                    .password(passwordEncoder.encode("userPassword"))
+                    .password(passwordEncoder.encode("password"))
                     .roles("USER");
     }
 

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.mibemolsoft.realworldcrud.domain.Customer;
 import com.mibemolsoft.realworldcrud.domain.File;
 import com.mibemolsoft.realworldcrud.messages.ResponseFile;
 import com.mibemolsoft.realworldcrud.messages.ResponseMessage;
@@ -23,16 +22,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class FileController {
 
     @Autowired
-    private FileStorageService storageService;
+    private FileStorageService fileStorageService;
 
     @Autowired
     private FileRepository fileRepository;
 
     @PostMapping(value="/upload", consumes = {"multipart/form-data"})
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("customerId") Long id) {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("customerId") long id) {
         String message = "";
         try {
-            storageService.store(file, id);
+            fileStorageService.store(file, id);
             message = "File uploaded successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
@@ -43,7 +42,7 @@ public class FileController {
 
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getAllFiles() {
-        List<ResponseFile> files = storageService.getAllFiles().map(dbFile -> {
+        List<ResponseFile> files = fileStorageService.getAllFiles().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/files/")
@@ -60,8 +59,8 @@ public class FileController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
-        File dbFile = storageService.getFile(id);
+    public ResponseEntity<byte[]> getFile(@PathVariable long id) {
+        File dbFile = fileStorageService.getFile(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getName() + "\"")
@@ -69,7 +68,7 @@ public class FileController {
     }
 
 
-    @PutMapping("/files/{id}")
+    @PutMapping(value="/files/{id}",consumes = {"multipart/form-data"})
     public ResponseEntity<File> updateFile(@PathVariable("id") long id, @RequestBody File file) {
         Optional<File> fileData = fileRepository.findById(id);
 
