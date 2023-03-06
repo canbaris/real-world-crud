@@ -12,6 +12,7 @@ you will be redirected to swagger ui<br/>
 - upload a file for a use using upload endpoint created for quick demonstration<br/>
 - download the file using the url returned from the request with the file id<br/>
 - crud operations are provided for files and customers<br/>
-- access the database through http://localhost:8080/h2-console/ with sa:password
+
+You can access the database through http://localhost:8080/h2-console/ with sa:password
 
 
