@@ -15,6 +15,7 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:8080")
 public class CustomerController {
 
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -64,7 +65,7 @@ public class CustomerController {
         }
     }
 
-    // TODO: Cascade delete all files related to customer
+    // TODO: cascade delete all files related to customer
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable("id") long id) {
         try {

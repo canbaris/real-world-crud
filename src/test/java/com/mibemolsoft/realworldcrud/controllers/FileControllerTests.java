@@ -31,7 +31,7 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 // TODO: check file contents as well as name and id
-// TODO: fix the tests, they are all failing
+// TODO: fix the tests, although they are as correct as possible, they are failing
 @WebMvcTest
 // tests cannot initialize the controller, 404 status code is returned, as a work around use import annotation
 @Import(FileController.class)
@@ -52,6 +52,7 @@ class FileControllerTests {
     private ObjectMapper objectMapper;
 
     @Test
+    // With mockuser the default user is: user and password is: password
     @WithMockUser
     public void givenFileObject_whenCreateFile_thenReturnSavedFile() throws Exception {
 
@@ -166,7 +167,6 @@ class FileControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedFile))
                 .with(csrf()));
-
 
         // then
         response.andExpect(status().isOk())
