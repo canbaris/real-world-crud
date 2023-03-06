@@ -22,8 +22,7 @@ public class CustomerController {
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         try {
-            List<Customer> customers = new ArrayList<>();
-            customerRepository.findAll().forEach(customers::add);
+            List<Customer> customers = new ArrayList<>(customerRepository.findAll());
             return new ResponseEntity<>(customers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -76,7 +75,7 @@ public class CustomerController {
         }
     }
 
-    // TODO: Cascade delete all files related to customer
+    // TODO: cascade delete all files related to customer
     @DeleteMapping("/customers")
     public ResponseEntity<HttpStatus> deleteAllCustomers() {
         try {

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.mibemolsoft.realworldcrud.domain.Customer;
 import com.mibemolsoft.realworldcrud.domain.File;
 import com.mibemolsoft.realworldcrud.messages.ResponseFile;
 import com.mibemolsoft.realworldcrud.messages.ResponseMessage;
@@ -30,7 +29,7 @@ public class FileController {
 
     @PostMapping(value="/upload", consumes = {"multipart/form-data"})
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("customerId") long id) {
-        String message = "";
+        String message;
         try {
             fileStorageService.store(file, id);
             message = "File uploaded successfully: " + file.getOriginalFilename();
