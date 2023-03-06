@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-// TODO : We can use Lombok to generate builders, getter setters and constructors
+// TODO : we can use Lombok to generate builders, getter setters and constructors
 @Entity
 public class Customer {
     @Id

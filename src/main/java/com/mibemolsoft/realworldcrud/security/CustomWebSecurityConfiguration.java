@@ -17,8 +17,7 @@ public class CustomWebSecurityConfiguration {
     @Autowired
     private DataSource dataSource;
 
-    // We need to move this to another config file due to a 'bug' causing circular dependencies
-    //
+    // we need to move this to another config file due to a 'bug' causing circular dependencies
     @Autowired
     private PasswordEncoder passwordEncoder;
 

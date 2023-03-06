@@ -127,11 +127,11 @@ class FileControllerTests {
 
     }
 
-    // negative scenario - valid customer id
-    // test for GET customer by id REST API
+    // negative scenario - valid file id
+    // test for GET file by id REST API
     @Test
     @WithMockUser
-    public void givenInvalidCustomerId_whenGetCustomerById_thenReturnEmpty() throws Exception {
+    public void givenInvalidFileId_whenGetFileById_thenReturnEmpty() throws Exception {
         // given
         long fileId = 1;
         given(fileRepository.findById(fileId)).willReturn(Optional.empty());
@@ -145,10 +145,10 @@ class FileControllerTests {
 
     }
 
-    // test for update customer REST API - positive scenario
+    // test for update file REST API - positive scenario
     @Test
     @WithMockUser
-    public void givenUpdatedCustomer_whenUpdateCustomer_thenReturnUpdatedCustomerObject() throws Exception {
+    public void givenUpdatedFile_whenUpdateFile_thenReturnUpdatedFileObject() throws Exception {
         // given
         long fileId = 1L;
         Customer customer1 = new Customer("canan", 5L);
@@ -176,10 +176,10 @@ class FileControllerTests {
 
     }
 
-    // test for update customer REST API - negative scenario
+    // test for update file REST API - negative scenario
     @Test
     @WithMockUser
-    public void givenUpdatedCustomer_whenUpdateCustomer_thenReturn404() throws Exception {
+    public void givenUpdatedFile_whenUpdateFile_thenReturn404() throws Exception {
         // given
         long fileId = 1L;
         Customer savedCustomer = new Customer("aliye", 7L);
@@ -199,10 +199,10 @@ class FileControllerTests {
                 .andDo(print());
     }
 
-    // test for delete customer REST API
+    // test for delete file REST API
     @Test
     @WithMockUser
-    public void givenEmployeeId_whenDeleteEmployee_thenReturn200() throws Exception {
+    public void givenFileId_whenDeleteFile_thenReturn200() throws Exception {
         // given
         long fileId = 1L;
         willDoNothing().given(fileRepository).deleteById(fileId);
