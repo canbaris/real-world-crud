@@ -13,11 +13,12 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class CustomWebSecurityConfiguration {
 
-    // TODO: Fix all this , get authentication details from the database, populate the database
+    // TODO: Fix all this √, get authentication details from the database √, populate the database √
     @Autowired
     private DataSource dataSource;
 
-    // We need to move this to another config file due to a bug causing circular dependencies
+    // We need to move this to another config file due to a 'bug' causing circular dependencies
+    //
     @Autowired
     private PasswordEncoder passwordEncoder;
 

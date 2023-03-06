@@ -31,7 +31,9 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 // TODO: check file contents as well as name and id
+// TODO: fix the tests, they are all failing
 @WebMvcTest
+// tests cannot initialize the controller, 404 status code is returned, as a work around use import annotation
 @Import(FileController.class)
 @ContextConfiguration(classes = {FileRepository.class})
 class FileControllerTests {
@@ -42,6 +44,7 @@ class FileControllerTests {
     @MockBean
     private FileRepository fileRepository;
 
+    // Required for context initialization
     @MockBean
     private FileStorageService fileStorageService;
 
@@ -52,7 +55,7 @@ class FileControllerTests {
     @WithMockUser
     public void givenFileObject_whenCreateFile_thenReturnSavedFile() throws Exception {
 
-        // given - precondition or setup
+        // given
         Customer customer = new Customer("canan",1L);
         byte[] fileData = new byte[20];
         new Random().nextBytes(fileData);
@@ -60,13 +63,13 @@ class FileControllerTests {
         given(fileRepository.save(any(File.class)))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        // when - action or behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(post("/files")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(file))
                 .with(csrf()));
 
-        // then - verify the result or output using assert statements
+        // then
         response.andDo(print()).
                 andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name",
@@ -78,7 +81,7 @@ class FileControllerTests {
     @Test
     @WithMockUser
     public void givenListOfFiles_whenGetAllFiles_thenReturnFileList() throws Exception {
-        // given - precondition or setup
+        // given
         List<File> listOfFiles = new ArrayList<>();
         Customer customer1 = new Customer("canan",2L);
         Customer customer2 = new Customer("fatma",3L);
@@ -88,10 +91,10 @@ class FileControllerTests {
         listOfFiles.add(new File("fatma.cv", fileData, customer2));
         given(fileRepository.findAll()).willReturn(listOfFiles);
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(get("/files"));
 
-        // then - verify the output
+        // then
         response.andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.size()",
@@ -100,11 +103,11 @@ class FileControllerTests {
     }
 
     // positive scenario - valid file id
-    // JUnit test for GET file by id REST API
+    // test for GET file by id REST API
     @Test
     @WithMockUser
     public void givenFileId_whenGetFileById_thenReturnFileObject() throws Exception {
-        // given - precondition or setup
+        // given
         long fileId = 1L;
         Customer customer = new Customer("canan", 4L);
         byte[] fileData = new byte[20];
@@ -112,10 +115,10 @@ class FileControllerTests {
         File file = new File("canan.cv", fileData, customer);
         given(fileRepository.findById(fileId)).willReturn(Optional.of(file));
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(get("/files/{id}", fileId));
 
-        // then - verify the output
+        // then
         response.andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.name", is(customer.getName())))
@@ -124,28 +127,28 @@ class FileControllerTests {
     }
 
     // negative scenario - valid customer id
-    // JUnit test for GET customer by id REST API
+    // test for GET customer by id REST API
     @Test
     @WithMockUser
     public void givenInvalidCustomerId_whenGetCustomerById_thenReturnEmpty() throws Exception {
-        // given - precondition or setup
+        // given
         long fileId = 1;
         given(fileRepository.findById(fileId)).willReturn(Optional.empty());
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(get("/files/{id}", fileId));
 
-        // then - verify the output
+        // then
         response.andExpect(status().isNotFound())
                 .andDo(print());
 
     }
 
-    // JUnit test for update customer REST API - positive scenario
+    // test for update customer REST API - positive scenario
     @Test
     @WithMockUser
     public void givenUpdatedCustomer_whenUpdateCustomer_thenReturnUpdatedCustomerObject() throws Exception {
-        // given - precondition or setup
+        // given
         long fileId = 1L;
         Customer customer1 = new Customer("canan", 5L);
         Customer customer2 = new Customer("aliye", 6L);
@@ -158,14 +161,14 @@ class FileControllerTests {
         given(fileRepository.save(updatedFile))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(put("/files/{id}", fileId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedFile))
                 .with(csrf()));
 
 
-        // then - verify the output
+        // then
         response.andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.name", is(updatedFile.getName())))
@@ -173,11 +176,11 @@ class FileControllerTests {
 
     }
 
-    // JUnit test for update customer REST API - negative scenario
+    // test for update customer REST API - negative scenario
     @Test
     @WithMockUser
     public void givenUpdatedCustomer_whenUpdateCustomer_thenReturn404() throws Exception {
-        // given - precondition or setup
+        // given
         long fileId = 1L;
         Customer savedCustomer = new Customer("aliye", 7L);
         Customer updatedEmployee = new Customer("veli", 8L);
@@ -185,30 +188,30 @@ class FileControllerTests {
         given(fileRepository.save(any(File.class)))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(put("/files/{id}", fileId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedEmployee))
                 .with(csrf()));
 
-        // then - verify the output
+        // then
         response.andExpect(status().isNotFound())
                 .andDo(print());
     }
 
-    // JUnit test for delete customer REST API
+    // test for delete customer REST API
     @Test
     @WithMockUser
     public void givenEmployeeId_whenDeleteEmployee_thenReturn200() throws Exception {
-        // given - precondition or setup
+        // given
         long fileId = 1L;
         willDoNothing().given(fileRepository).deleteById(fileId);
 
-        // when -  action or the behaviour that we are going test
+        // when
         ResultActions response = mockMvc.perform(delete("/files/{id}", fileId)
                 .with(csrf()));
 
-        // then - verify the output
+        // then
         response.andExpect(status().isNoContent())
                 .andDo(print());
     }

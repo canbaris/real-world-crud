@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mibemolsoft.realworldcrud.repository.FileRepository;
 
+// Although DDD defines @Service as an interface, it is not mandatory to create interfaces for Service
+// for the purposes of this POC  https://www.baeldung.com/spring-service-annotation-placement
 @Service
 public class FileStorageService {
 
