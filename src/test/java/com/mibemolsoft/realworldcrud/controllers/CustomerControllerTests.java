@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @WebMvcTest
 // tests cannot initialize the controller, 404 status code is returned, as a workaround use import annotation
+// https://www.baeldung.com/spring-import-annotation
 @Import(CustomerController.class)
 @ContextConfiguration(classes = {CustomerRepository.class})
 class CustomerControllerTests {

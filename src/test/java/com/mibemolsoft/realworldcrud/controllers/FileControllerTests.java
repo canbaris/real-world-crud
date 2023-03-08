@@ -34,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 // TODO: fix the tests, although they are as correct as possible, they are failing
 @WebMvcTest
 // tests cannot initialize the controller, 404 status code is returned, as a workaround use import annotation
+// https://www.baeldung.com/spring-import-annotation
 @Import(FileController.class)
 @ContextConfiguration(classes = {FileRepository.class})
 class FileControllerTests {
