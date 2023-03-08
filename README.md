@@ -10,6 +10,7 @@ you will be redirected to swagger ui<br/>
 
 - create a customer<br/>
 - upload a file for a customer using upload endpoint created for quick demonstration<br/>
+- get a list of files uploaded using get /files <br/>
 - download the file using the url returned from the request with the file id<br/>
 - crud operations are provided for files and customers<br/>
 
