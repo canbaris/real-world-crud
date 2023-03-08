@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest
-// tests cannot initialize the controller, 404 status code is returned, as a work around use import annotation
+// tests cannot initialize the controller, 404 status code is returned, as a workaround use import annotation
 @Import(CustomerController.class)
 @ContextConfiguration(classes = {CustomerRepository.class})
 class CustomerControllerTests {
@@ -173,7 +173,7 @@ class CustomerControllerTests {
     // test for delete customer REST API
     @Test
     @WithMockUser
-    public void givenEmployeeId_whenDeleteEmployee_thenReturn200() throws Exception{
+    public void givenCustomerId_whenDeleteCustomer_thenReturn200() throws Exception{
         // given
         long customerId = 1;
         willDoNothing().given(customerRepository).deleteById(customerId);

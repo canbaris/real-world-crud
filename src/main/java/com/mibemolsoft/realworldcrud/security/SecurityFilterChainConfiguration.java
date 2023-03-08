@@ -10,7 +10,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @Configuration
 public class SecurityFilterChainConfiguration {
 
-    // Disable csrf for demonstration purposes
+    // disabled csrf for demonstration purposes
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http

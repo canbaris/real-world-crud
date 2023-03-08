@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 // TODO: check file contents as well as name and id
 // TODO: fix the tests, although they are as correct as possible, they are failing
 @WebMvcTest
-// tests cannot initialize the controller, 404 status code is returned, as a work around use import annotation
+// tests cannot initialize the controller, 404 status code is returned, as a workaround use import annotation
 @Import(FileController.class)
 @ContextConfiguration(classes = {FileRepository.class})
 class FileControllerTests {
@@ -52,7 +52,7 @@ class FileControllerTests {
     private ObjectMapper objectMapper;
 
     @Test
-    // With mockuser the default user is: user and password is: password
+    // with mockuser the default user is: user and password is: password
     @WithMockUser
     public void givenFileObject_whenCreateFile_thenReturnSavedFile() throws Exception {
 

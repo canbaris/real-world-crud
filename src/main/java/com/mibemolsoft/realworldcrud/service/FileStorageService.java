@@ -1,7 +1,6 @@
 package com.mibemolsoft.realworldcrud.service;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.mibemolsoft.realworldcrud.domain.File;

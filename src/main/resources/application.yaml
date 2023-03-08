@@ -8,7 +8,7 @@ spring:
     password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    # update means create but don't delete existing entities
+    # update means create but don't delete existing entities redundant when using inmem database
     hibernate.ddl-auto: update
   h2:
     console:

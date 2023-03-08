@@ -15,7 +15,6 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:8080")
 public class CustomerController {
 
-
     @Autowired
     private CustomerRepository customerRepository;
 
